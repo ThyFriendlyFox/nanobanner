@@ -614,11 +614,15 @@
 
 <main class="min-h-screen bg-slate-50 text-slate-900">
 	<section class="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-		<header>
-			<h1 class="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-				NanoBanner
+		<header class="flex flex-col items-center text-center">
+			<h1 class="flex justify-center">
+				<img
+					src="/logo.png"
+					alt="NanoBanner"
+					class="h-28 w-auto sm:h-36 md:h-44"
+				/>
 			</h1>
-			<p class="mt-2 max-w-xl text-sm text-slate-600 sm:text-base">
+			<p class="mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
 				Resize and reframe a single image into platform‑perfect banners, posts, and prints.
 				No accounts, no clutter—just upload, tweak, download.
 			</p>
