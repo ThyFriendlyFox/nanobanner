@@ -32,6 +32,11 @@
 		| 'linkedin_link_preview'
 		| 'linkedin_carousel'
 		| 'linkedin_event'
+		| 'web_og_default'
+		| 'web_favicon_16'
+		| 'web_favicon_32'
+		| 'web_favicon_64'
+		| 'web_apple_touch_180'
 		| 'custom';
 
 	type Preset = {
@@ -196,6 +201,37 @@
 			width: 1200,
 			height: 675
 		},
+		// Web
+		{
+			id: 'web_og_default',
+			label: 'Open Graph / Social Share (1200 × 630, 1.91∶1)',
+			width: 1200,
+			height: 630
+		},
+		{
+			id: 'web_favicon_16',
+			label: 'Favicon 16 × 16',
+			width: 16,
+			height: 16
+		},
+		{
+			id: 'web_favicon_32',
+			label: 'Favicon 32 × 32',
+			width: 32,
+			height: 32
+		},
+		{
+			id: 'web_favicon_64',
+			label: 'Favicon 64 × 64',
+			width: 64,
+			height: 64
+		},
+		{
+			id: 'web_apple_touch_180',
+			label: 'Apple Touch Icon (180 × 180)',
+			width: 180,
+			height: 180
+		},
 		{
 			id: 'custom',
 			label: 'Custom size',
@@ -204,24 +240,29 @@
 		}
 	];
 
-	type PlatformId = 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'tshirt' | 'custom';
+	type PlatformId = 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'tshirt' | 'web' | 'custom';
 
 	const PLATFORMS: { id: PlatformId; label: string; presetIds: PresetId[] }[] = [
 		{ id: 'twitter', label: 'Twitter / X', presetIds: ['twitter_profile', 'twitter_banner', 'twitter_post', 'twitter_card'] },
 		{ id: 'instagram', label: 'Instagram', presetIds: ['instagram_post', 'instagram_portrait', 'instagram_landscape', 'instagram_story_reel', 'instagram_profile', 'instagram_carousel', 'instagram_carousel_portrait'] },
-		{ id: 'linkedin', label: 'LinkedIn', presetIds: [
-			'linkedin_profile',
-			'linkedin_logo',
-			'linkedin_cover',
-			'linkedin_post_square',
-			'linkedin_post_portrait',
-			'linkedin_post_landscape',
-			'linkedin_link_preview',
-			'linkedin_carousel',
-			'linkedin_event'
-		]},
+		{
+			id: 'linkedin',
+			label: 'LinkedIn',
+			presetIds: [
+				'linkedin_profile',
+				'linkedin_logo',
+				'linkedin_cover',
+				'linkedin_post_square',
+				'linkedin_post_portrait',
+				'linkedin_post_landscape',
+				'linkedin_link_preview',
+				'linkedin_carousel',
+				'linkedin_event'
+			]
+		},
 		{ id: 'youtube', label: 'YouTube', presetIds: ['youtube_thumbnail', 'youtube_banner', 'youtube_profile', 'youtube_community'] },
 		{ id: 'tshirt', label: 'T‑Shirt', presetIds: ['tshirt_print'] },
+		{ id: 'web', label: 'Web', presetIds: ['web_og_default', 'web_favicon_16', 'web_favicon_32', 'web_favicon_64', 'web_apple_touch_180'] },
 		{ id: 'custom', label: 'Custom', presetIds: ['custom'] }
 	];
 
@@ -230,8 +271,8 @@
 		return platform?.id ?? 'custom';
 	}
 
-	function getCurrentPlatformSizes(): Preset[] {
-		const platform = PLATFORMS.find((p) => p.id === getPlatformForPreset(selectedPresetId));
+	function getSizesForPlatform(platformId: PlatformId): Preset[] {
+		const platform = PLATFORMS.find((p) => p.id === platformId);
 		if (!platform) return [];
 		return platform.presetIds
 			.map((id) => PRESETS.find((p) => p.id === id))
@@ -242,8 +283,16 @@
 	let originalUrl: string | null = null;
 	let processedUrl: string | null = null;
 
+	let selectedPlatform: PlatformId = 'twitter';
 	let selectedPresetId: PresetId = 'twitter_banner';
 	let customWidth = 1500;
+
+	$: if (
+		selectedPresetId &&
+		!getSizesForPlatform(selectedPlatform).some((p) => p.id === selectedPresetId)
+	) {
+		selectedPlatform = getPlatformForPreset(selectedPresetId);
+	}
 	let customHeight = 500;
 
 	let method: AdjustmentMethod = 'fit';
@@ -283,6 +332,7 @@
 		file = null;
 		originalUrl = null;
 		processedUrl = null;
+		selectedPlatform = 'twitter';
 		selectedPresetId = 'twitter_banner';
 		customWidth = 1500;
 		customHeight = 500;
@@ -335,10 +385,8 @@
 		void processImage();
 	};
 
-	const onPlatformChange = (event: Event) => {
-		const target = event.currentTarget as HTMLSelectElement;
-		const platformId = target.value as PlatformId;
-		const platform = PLATFORMS.find((p) => p.id === platformId);
+	const onPlatformChange = () => {
+		const platform = PLATFORMS.find((p) => p.id === selectedPlatform);
 		if (platform?.presetIds.length) {
 			selectedPresetId = platform.presetIds[0];
 		}
@@ -657,7 +705,7 @@
 								<select
 									id="platform"
 									class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-									value={getPlatformForPreset(selectedPresetId)}
+									bind:value={selectedPlatform}
 									on:change={onPlatformChange}
 								>
 									{#each PLATFORMS as platform}
@@ -665,7 +713,7 @@
 									{/each}
 								</select>
 							</div>
-							{#if getPlatformForPreset(selectedPresetId) === 'custom'}
+							{#if selectedPlatform === 'custom'}
 								<div class="space-y-2">
 									<p class="block text-xs font-medium uppercase tracking-wide text-slate-500">
 										Size
@@ -686,7 +734,7 @@
 										bind:value={selectedPresetId}
 										on:change={onPresetChange}
 									>
-										{#each getCurrentPlatformSizes() as preset}
+										{#each getSizesForPlatform(selectedPlatform) as preset}
 											<option value={preset.id}>{preset.label}</option>
 										{/each}
 									</select>
