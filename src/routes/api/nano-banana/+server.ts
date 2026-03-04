@@ -47,18 +47,14 @@ export const POST: RequestHandler = async ({ request }) => {
 		const prompt = buildPrompt(method, width, height);
 
 		const ai = new GoogleGenAI({ apiKey });
-		const model =
-			(env as Record<string, string | undefined>)['NANO_BANANA_MODEL'] || DEFAULT_MODEL;
+		const model = (env as Record<string, string | undefined>)['NANO_BANANA_MODEL'] || DEFAULT_MODEL;
 
 		const response = await ai.models.generateContent({
 			model,
 			contents: [
 				{
 					role: 'user',
-					parts: [
-						{ inlineData: { mimeType, data: base64 } },
-						{ text: prompt }
-					]
+					parts: [{ inlineData: { mimeType, data: base64 } }, { text: prompt }]
 				}
 			],
 			config: {
@@ -69,10 +65,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		const candidate = response.candidates?.[0];
 		if (!candidate?.content?.parts?.length) {
 			const text = response.text ?? 'No image was generated.';
-			return json(
-				{ error: `Nano Banana returned no image. ${text}`.trim() },
-				{ status: 502 }
-			);
+			return json({ error: `Nano Banana returned no image. ${text}`.trim() }, { status: 502 });
 		}
 
 		for (const part of candidate.content.parts) {
@@ -87,10 +80,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			}
 		}
 
-		return json(
-			{ error: 'Nano Banana response did not contain an image.' },
-			{ status: 502 }
-		);
+		return json({ error: 'Nano Banana response did not contain an image.' }, { status: 502 });
 	} catch (err) {
 		console.error('[nano-banana]', err);
 		const message = err instanceof Error ? err.message : 'Nano Banana processing failed';

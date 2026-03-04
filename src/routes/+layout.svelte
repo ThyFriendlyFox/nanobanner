@@ -12,7 +12,10 @@
 	<link rel="icon" href="/logo.png" type="image/png" />
 	<meta property="og:image" content={logoUrl} />
 	<meta property="og:title" content="NanoBanner" />
-	<meta property="og:description" content="Resize and reframe images into platform‑perfect banners, posts, and prints. No accounts, no clutter—just upload, tweak, download." />
+	<meta
+		property="og:description"
+		content="Resize and reframe images into platform‑perfect banners, posts, and prints. No accounts, no clutter—just upload, tweak, download."
+	/>
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:image" content={logoUrl} />
 </svelte:head>
