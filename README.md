@@ -1,42 +1,65 @@
-# sv
+# NanoBanner
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+<p align="center">
+  <img src="og-image.png" alt="NanoBanner" width="1200" />
+</p>
 
-## Creating a project
+Resize and reframe images into platform-perfect banners, posts, and prints. No accounts, no clutter—just upload, tweak, download.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```sh
-# create a new project
-npx sv create my-app
-```
+- **Single-screen workflow** — Upload, configure, preview, and download on one page
+- **Platform presets** — Twitter/X, Instagram, LinkedIn, YouTube, Web (OG, favicons), T-Shirt
+- **Adjustment methods** — Fit, Fill (blur extend), Refocus, Crop with focus controls
+- **AI mode (Nano Banana)** — Optional Gemini-powered reframing when `NANO_BANANA_API_KEY` is set
+- **Client-side processing** — Standard adjustments run in the browser; nothing is uploaded
+- **Responsive** — Works on desktop and mobile
 
-To recreate this project with the same configuration:
+## Tech Stack
 
-```sh
-# recreate this project
-npx sv@0.12.4 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" playwright tailwindcss="plugins:typography,forms" sveltekit-adapter="adapter:vercel" mcp="ide:cursor+setup:local" --install npm ./
-```
+- SvelteKit + Svelte 5
+- Tailwind CSS
+- Vercel (adapter included)
+- Google GenAI (optional, for AI mode)
 
-## Developing
+## Quick Start
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+Open http://localhost:5173
 
-To create a production version of your app:
+## Environment Variables
 
-```sh
+| Variable | Required | Description |
+|----------|----------|-------------|
+| NANO_BANANA_API_KEY | No | Google AI (Gemini) API key. When set, enables the AI (Nano Banana) adjustment mode. |
+| NANO_BANANA_MODEL | No | Override the Gemini model (default: gemini-2.5-flash-preview-05-20). |
+
+Copy `.env.example` to `.env` and add your keys.
+
+## Deploy to Vercel
+
+```bash
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+Connect the repo to Vercel; the adapter is already configured.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| npm run dev | Start dev server |
+| npm run build | Production build |
+| npm run preview | Preview production build |
+| npm run check | Typecheck |
+| npm run lint | Lint and format check |
+| npm run format | Format code |
+| npm run test | Run unit and e2e tests |
+
+## License
+
+Private project.
