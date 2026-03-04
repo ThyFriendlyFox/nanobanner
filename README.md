@@ -33,10 +33,10 @@ Open http://localhost:5173
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| NANO_BANANA_API_KEY | No | Google AI (Gemini) API key. When set, enables the AI (Nano Banana) adjustment mode. |
-| NANO_BANANA_MODEL | No | Override the Gemini model (default: gemini-2.5-flash-preview-05-20). |
+| Variable            | Required | Description                                                                         |
+| ------------------- | -------- | ----------------------------------------------------------------------------------- |
+| NANO_BANANA_API_KEY | No       | Google AI (Gemini) API key. When set, enables the AI (Nano Banana) adjustment mode. |
+| NANO_BANANA_MODEL   | No       | Override the Gemini model (default: gemini-2.5-flash-preview-05-20).                |
 
 Copy `.env.example` to `.env` and add your keys.
 
@@ -50,15 +50,15 @@ Connect the repo to Vercel; the adapter is already configured.
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| npm run dev | Start dev server |
-| npm run build | Production build |
+| Command         | Description              |
+| --------------- | ------------------------ |
+| npm run dev     | Start dev server         |
+| npm run build   | Production build         |
 | npm run preview | Preview production build |
-| npm run check | Typecheck |
-| npm run lint | Lint and format check |
-| npm run format | Format code |
-| npm run test | Run unit and e2e tests |
+| npm run check   | Typecheck                |
+| npm run lint    | Lint and format check    |
+| npm run format  | Format code              |
+| npm run test    | Run unit and e2e tests   |
 
 ## License
 

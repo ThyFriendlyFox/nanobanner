@@ -243,8 +243,24 @@
 	type PlatformId = 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'tshirt' | 'web' | 'custom';
 
 	const PLATFORMS: { id: PlatformId; label: string; presetIds: PresetId[] }[] = [
-		{ id: 'twitter', label: 'Twitter / X', presetIds: ['twitter_profile', 'twitter_banner', 'twitter_post', 'twitter_card'] },
-		{ id: 'instagram', label: 'Instagram', presetIds: ['instagram_post', 'instagram_portrait', 'instagram_landscape', 'instagram_story_reel', 'instagram_profile', 'instagram_carousel', 'instagram_carousel_portrait'] },
+		{
+			id: 'twitter',
+			label: 'Twitter / X',
+			presetIds: ['twitter_profile', 'twitter_banner', 'twitter_post', 'twitter_card']
+		},
+		{
+			id: 'instagram',
+			label: 'Instagram',
+			presetIds: [
+				'instagram_post',
+				'instagram_portrait',
+				'instagram_landscape',
+				'instagram_story_reel',
+				'instagram_profile',
+				'instagram_carousel',
+				'instagram_carousel_portrait'
+			]
+		},
 		{
 			id: 'linkedin',
 			label: 'LinkedIn',
@@ -260,9 +276,23 @@
 				'linkedin_event'
 			]
 		},
-		{ id: 'youtube', label: 'YouTube', presetIds: ['youtube_thumbnail', 'youtube_banner', 'youtube_profile', 'youtube_community'] },
+		{
+			id: 'youtube',
+			label: 'YouTube',
+			presetIds: ['youtube_thumbnail', 'youtube_banner', 'youtube_profile', 'youtube_community']
+		},
 		{ id: 'tshirt', label: 'T‑Shirt', presetIds: ['tshirt_print'] },
-		{ id: 'web', label: 'Web', presetIds: ['web_og_default', 'web_favicon_16', 'web_favicon_32', 'web_favicon_64', 'web_apple_touch_180'] },
+		{
+			id: 'web',
+			label: 'Web',
+			presetIds: [
+				'web_og_default',
+				'web_favicon_16',
+				'web_favicon_32',
+				'web_favicon_64',
+				'web_apple_touch_180'
+			]
+		},
 		{ id: 'custom', label: 'Custom', presetIds: ['custom'] }
 	];
 
@@ -553,7 +583,10 @@
 
 			if (processedUrl) URL.revokeObjectURL(processedUrl);
 			const blob: Blob = await new Promise((resolve, reject) =>
-				canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Unable to export image.'))), 'image/png')
+				canvas.toBlob(
+					(b) => (b ? resolve(b) : reject(new Error('Unable to export image.'))),
+					'image/png'
+				)
 			);
 
 			const objectUrl = URL.createObjectURL(blob);
@@ -602,7 +635,8 @@
 				await navigator.clipboard.writeText(processedUrl);
 				infoMessage = 'Image link copied to clipboard. You can paste it where you need it.';
 			} else {
-				infoMessage = 'Sharing is not supported in this browser. Please download the image instead.';
+				infoMessage =
+					'Sharing is not supported in this browser. Please download the image instead.';
 			}
 		} catch (error) {
 			console.error(error);
@@ -613,24 +647,20 @@
 </script>
 
 <main class="min-h-screen bg-slate-50 text-slate-900">
-	<section class="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-12 pt-8 sm:px-6 lg:px-8">
+	<section class="mx-auto flex max-w-6xl flex-col gap-10 px-4 pt-8 pb-12 sm:px-6 lg:px-8">
 		<header class="flex flex-col items-center text-center">
 			<h1 class="flex justify-center">
-				<img
-					src="/logo.png"
-					alt="NanoBanner"
-					class="h-28 w-auto sm:h-36 md:h-44"
-				/>
+				<img src="/logo.png" alt="NanoBanner" class="h-28 w-auto sm:h-36 md:h-44" />
 			</h1>
 			<p class="mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
-				Resize and reframe a single image into platform‑perfect banners, posts, and prints.
-				No accounts, no clutter—just upload, tweak, download.
+				Resize and reframe a single image into platform‑perfect banners, posts, and prints. No
+				accounts, no clutter—just upload, tweak, download.
 			</p>
 		</header>
 
 		<!-- Top: Upload area -->
 		<section
-			class="relative rounded-2xl border border-dashed border-slate-300 bg-white/70 p-6 shadow-sm shadow-slate-100 outline-none transition hover:border-slate-400 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 sm:p-8"
+			class="relative rounded-2xl border border-dashed border-slate-300 bg-white/70 p-6 shadow-sm shadow-slate-100 transition outline-none hover:border-slate-400 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 sm:p-8"
 			on:drop={handleDrop}
 			on:dragover={handleDragOver}
 			role="group"
@@ -638,24 +668,17 @@
 		>
 			<div class="flex flex-col gap-6 md:flex-row md:items-center">
 				<div class="flex-1 space-y-4">
-					<p class="text-sm font-medium text-slate-900 sm:text-base">
-						Upload a single image
-					</p>
+					<p class="text-sm font-medium text-slate-900 sm:text-base">Upload a single image</p>
 					<p class="text-xs text-slate-600 sm:text-sm">
 						Drag &amp; drop your image here, or click to choose a file. NanoBanner works best with
 						high‑resolution JPG or PNG files.
 					</p>
 
 					<label
-						class="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-slate-50 shadow-sm shadow-slate-500/30 transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50"
+						class="group inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-slate-50 shadow-sm shadow-slate-500/30 transition hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 focus-visible:outline-none"
 					>
 						<span>Choose image</span>
-						<input
-							type="file"
-							accept="image/*"
-							class="sr-only"
-							on:change={handleFileFromInput}
-						/>
+						<input type="file" accept="image/*" class="sr-only" on:change={handleFileFromInput} />
 					</label>
 
 					<div class="flex items-center gap-3 text-[11px] text-slate-500 sm:text-xs">
@@ -692,306 +715,304 @@
 
 		<!-- Middle: Configuration options -->
 		{#if file}
-			<section class="space-y-6 rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm shadow-slate-100 sm:p-7">
-				<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
-					Configuration
-				</h2>
+			<section
+				class="space-y-6 rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm shadow-slate-100 sm:p-7"
+			>
+				<h2 class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Configuration</h2>
 
 				<div class="space-y-5">
-						<div class="grid gap-4 sm:grid-cols-2">
+					<div class="grid gap-4 sm:grid-cols-2">
+						<div class="space-y-2">
+							<label
+								for="platform"
+								class="block text-xs font-medium tracking-wide text-slate-500 uppercase"
+							>
+								Platform
+							</label>
+							<select
+								id="platform"
+								class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/40 focus:outline-none"
+								bind:value={selectedPlatform}
+								on:change={onPlatformChange}
+							>
+								{#each PLATFORMS as platform}
+									<option value={platform.id}>{platform.label}</option>
+								{/each}
+							</select>
+						</div>
+						{#if selectedPlatform === 'custom'}
+							<div class="space-y-2">
+								<p class="block text-xs font-medium tracking-wide text-slate-500 uppercase">Size</p>
+								<p class="text-xs text-slate-500">Enter dimensions below.</p>
+							</div>
+						{:else}
 							<div class="space-y-2">
 								<label
-									for="platform"
-									class="block text-xs font-medium uppercase tracking-wide text-slate-500"
+									for="usecase"
+									class="block text-xs font-medium tracking-wide text-slate-500 uppercase"
 								>
-									Platform
+									Usecase / size
 								</label>
 								<select
-									id="platform"
-									class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-									bind:value={selectedPlatform}
-									on:change={onPlatformChange}
+									id="usecase"
+									class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/40 focus:outline-none"
+									bind:value={selectedPresetId}
+									on:change={onPresetChange}
 								>
-									{#each PLATFORMS as platform}
-										<option value={platform.id}>{platform.label}</option>
+									{#each getSizesForPlatform(selectedPlatform) as preset}
+										<option value={preset.id}>{preset.label}</option>
 									{/each}
 								</select>
 							</div>
-							{#if selectedPlatform === 'custom'}
-								<div class="space-y-2">
-									<p class="block text-xs font-medium uppercase tracking-wide text-slate-500">
-										Size
-									</p>
-									<p class="text-xs text-slate-500">Enter dimensions below.</p>
-								</div>
-							{:else}
-								<div class="space-y-2">
-									<label
-										for="usecase"
-										class="block text-xs font-medium uppercase tracking-wide text-slate-500"
-									>
-										Usecase / size
-									</label>
-									<select
-										id="usecase"
-										class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-										bind:value={selectedPresetId}
-										on:change={onPresetChange}
-									>
-										{#each getSizesForPlatform(selectedPlatform) as preset}
-											<option value={preset.id}>{preset.label}</option>
-										{/each}
-									</select>
-								</div>
-							{/if}
-						</div>
-
-						{#if data?.nanoBananaEnabled}
-							<div class="space-y-2">
-								<p class="block text-xs font-medium uppercase tracking-wide text-slate-500">
-									Adjustment mode
-								</p>
-								<div
-									class="flex gap-0 rounded-xl border border-slate-200 bg-slate-50/60 p-1 shadow-sm"
-									role="group"
-									aria-label="Standard or AI adjustment"
-								>
-									<label
-										class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:ring-1 has-[:checked]:ring-slate-200"
-									>
-										<input
-											type="radio"
-											class="sr-only"
-											name="adjustment-mode"
-											value="standard"
-											checked={!useAi}
-											on:change={() => {
-												useAi = false;
-												infoMessage = null;
-												if (file) void processImage();
-											}}
-										/>
-										Standard
-									</label>
-									<label
-										class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:ring-1 has-[:checked]:ring-slate-200"
-									>
-										<input
-											type="radio"
-											class="sr-only"
-											name="adjustment-mode"
-											value="ai"
-											checked={useAi}
-											on:change={() => {
-												useAi = true;
-												infoMessage = null;
-												if (file) void processImage();
-											}}
-										/>
-										AI (Nano Banana)
-									</label>
-								</div>
-							</div>
 						{/if}
+					</div>
 
-						{#if selectedPresetId === 'custom'}
-							<div class="grid gap-4 sm:grid-cols-2">
-								<div class="space-y-1.5">
-									<label for="custom-width" class="block text-xs font-medium text-slate-600">
-										Width (px)
-									</label>
-									<input
-										id="custom-width"
-										type="number"
-										min="1"
-										step="1"
-										class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-										bind:value={customWidth}
-										on:change={onCustomSizeChange}
-									/>
-								</div>
-								<div class="space-y-1.5">
-									<label for="custom-height" class="block text-xs font-medium text-slate-600">
-										Height (px)
-									</label>
-									<input
-										id="custom-height"
-										type="number"
-										min="1"
-										step="1"
-										class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/40"
-										bind:value={customHeight}
-										on:change={onCustomSizeChange}
-									/>
-								</div>
-							</div>
-						{/if}
-
+					{#if data?.nanoBananaEnabled}
 						<div class="space-y-2">
-							<p class="block text-xs font-medium uppercase tracking-wide text-slate-500">
-								Adjustment method
+							<p class="block text-xs font-medium tracking-wide text-slate-500 uppercase">
+								Adjustment mode
 							</p>
-							<div class="grid gap-2 sm:grid-cols-2">
+							<div
+								class="flex gap-0 rounded-xl border border-slate-200 bg-slate-50/60 p-1 shadow-sm"
+								role="group"
+								aria-label="Standard or AI adjustment"
+							>
 								<label
-									class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm shadow-slate-100 ring-0 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+									class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:ring-1 has-[:checked]:ring-slate-200"
 								>
 									<input
 										type="radio"
-										class="h-3.5 w-3.5 text-sky-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
-										name="method"
-										value="fit"
-										checked={method === 'fit'}
-										on:change={onMethodChange}
+										class="sr-only"
+										name="adjustment-mode"
+										value="standard"
+										checked={!useAi}
+										on:change={() => {
+											useAi = false;
+											infoMessage = null;
+											if (file) void processImage();
+										}}
 									/>
-									<span class="flex flex-col">
-										<span class="text-xs font-semibold">Fit (default)</span>
-										<span class="text-[11px] text-slate-500">
-											Contain image inside target size, adding padding where needed.
-										</span>
-									</span>
+									Standard
 								</label>
-
 								<label
-									class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm shadow-slate-100 ring-0 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+									class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition has-[:checked]:bg-white has-[:checked]:shadow-sm has-[:checked]:ring-1 has-[:checked]:ring-slate-200"
 								>
 									<input
 										type="radio"
-										class="h-3.5 w-3.5 text-sky-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
-										name="method"
-										value="fill"
-										checked={method === 'fill'}
-										on:change={onMethodChange}
+										class="sr-only"
+										name="adjustment-mode"
+										value="ai"
+										checked={useAi}
+										on:change={() => {
+											useAi = true;
+											infoMessage = null;
+											if (file) void processImage();
+										}}
 									/>
-									<span class="flex flex-col">
-										<span class="text-xs font-semibold">Fill</span>
-										<span class="text-[11px] text-slate-500">
-											Use a blurred extension of the image to fill extra space.
-										</span>
-									</span>
-								</label>
-
-								<label
-									class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm shadow-slate-100 ring-0 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
-								>
-									<input
-										type="radio"
-										class="h-3.5 w-3.5 text-sky-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
-										name="method"
-										value="refocus"
-										checked={method === 'refocus'}
-										on:change={onMethodChange}
-									/>
-									<span class="flex flex-col">
-										<span class="text-xs font-semibold">Refocus</span>
-										<span class="text-[11px] text-slate-500">
-											Center key content with a smart fill‑style preview. Perfect for portraits.
-										</span>
-									</span>
-								</label>
-
-								<label
-									class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm shadow-slate-100 ring-0 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
-								>
-									<input
-										type="radio"
-										class="h-3.5 w-3.5 text-sky-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-500"
-										name="method"
-										value="crop"
-										checked={method === 'crop'}
-										on:change={onMethodChange}
-									/>
-									<span class="flex flex-col">
-										<span class="text-xs font-semibold">Crop</span>
-										<span class="text-[11px] text-slate-500">
-											Tighten the frame with simple focus controls.
-										</span>
-									</span>
+									AI (Nano Banana)
 								</label>
 							</div>
 						</div>
+					{/if}
 
-						{#if method === 'fill' || method === 'refocus'}
-							<div class="space-y-2">
-								<div class="flex items-center justify-between text-xs text-slate-600">
-									<span class="font-medium">AI intensity</span>
-									<span class="text-[11px] text-slate-500">
-										{#if aiIntensity < 0.35}
-											Subtle background
-										{:else if aiIntensity < 0.7}
-											Balanced
-										{:else}
-											Strong blur &amp; fill
-										{/if}
-									</span>
-								</div>
+					{#if selectedPresetId === 'custom'}
+						<div class="grid gap-4 sm:grid-cols-2">
+							<div class="space-y-1.5">
+								<label for="custom-width" class="block text-xs font-medium text-slate-600">
+									Width (px)
+								</label>
 								<input
-									type="range"
-									min="0"
-									max="1"
-									step="0.05"
-									class="w-full accent-sky-600"
-									bind:value={aiIntensity}
-									on:input={onAiIntensityChange}
+									id="custom-width"
+									type="number"
+									min="1"
+									step="1"
+									class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/40 focus:outline-none"
+									bind:value={customWidth}
+									on:change={onCustomSizeChange}
 								/>
 							</div>
-						{/if}
-
-						{#if method === 'crop'}
-							<div class="space-y-3 rounded-xl bg-slate-50/80 p-3">
-								<p class="text-[11px] font-medium uppercase tracking-wide text-slate-500">
-									Crop focus
-								</p>
-								<div class="space-y-2">
-									<label
-										for="crop-horizontal"
-										class="flex items-center justify-between text-[11px] text-slate-600"
-									>
-										<span>Horizontal</span>
-										<span>{cropX}%</span>
-									</label>
-									<input
-										id="crop-horizontal"
-										type="range"
-										min="0"
-										max="100"
-										step="1"
-										class="w-full accent-sky-600"
-										bind:value={cropX}
-										on:input={onCropChange}
-									/>
-								</div>
-								<div class="space-y-2">
-									<label
-										for="crop-vertical"
-										class="flex items-center justify-between text-[11px] text-slate-600"
-									>
-										<span>Vertical</span>
-										<span>{cropY}%</span>
-									</label>
-									<input
-										id="crop-vertical"
-										type="range"
-										min="0"
-										max="100"
-										step="1"
-										class="w-full accent-sky-600"
-										bind:value={cropY}
-										on:input={onCropChange}
-									/>
-								</div>
-								<p class="text-[11px] text-slate-500">
-									Move the focus point towards where faces or key content should stay visible.
-								</p>
+							<div class="space-y-1.5">
+								<label for="custom-height" class="block text-xs font-medium text-slate-600">
+									Height (px)
+								</label>
+								<input
+									id="custom-height"
+									type="number"
+									min="1"
+									step="1"
+									class="block w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-sky-500 focus:ring-2 focus:ring-sky-500/40 focus:outline-none"
+									bind:value={customHeight}
+									on:change={onCustomSizeChange}
+								/>
 							</div>
-						{/if}
+						</div>
+					{/if}
+
+					<div class="space-y-2">
+						<p class="block text-xs font-medium tracking-wide text-slate-500 uppercase">
+							Adjustment method
+						</p>
+						<div class="grid gap-2 sm:grid-cols-2">
+							<label
+								class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm ring-0 shadow-slate-100 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+							>
+								<input
+									type="radio"
+									class="h-3.5 w-3.5 text-sky-600 focus-visible:ring-1 focus-visible:ring-sky-500 focus-visible:outline-none"
+									name="method"
+									value="fit"
+									checked={method === 'fit'}
+									on:change={onMethodChange}
+								/>
+								<span class="flex flex-col">
+									<span class="text-xs font-semibold">Fit (default)</span>
+									<span class="text-[11px] text-slate-500">
+										Contain image inside target size, adding padding where needed.
+									</span>
+								</span>
+							</label>
+
+							<label
+								class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm ring-0 shadow-slate-100 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+							>
+								<input
+									type="radio"
+									class="h-3.5 w-3.5 text-sky-600 focus-visible:ring-1 focus-visible:ring-sky-500 focus-visible:outline-none"
+									name="method"
+									value="fill"
+									checked={method === 'fill'}
+									on:change={onMethodChange}
+								/>
+								<span class="flex flex-col">
+									<span class="text-xs font-semibold">Fill</span>
+									<span class="text-[11px] text-slate-500">
+										Use a blurred extension of the image to fill extra space.
+									</span>
+								</span>
+							</label>
+
+							<label
+								class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm ring-0 shadow-slate-100 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+							>
+								<input
+									type="radio"
+									class="h-3.5 w-3.5 text-sky-600 focus-visible:ring-1 focus-visible:ring-sky-500 focus-visible:outline-none"
+									name="method"
+									value="refocus"
+									checked={method === 'refocus'}
+									on:change={onMethodChange}
+								/>
+								<span class="flex flex-col">
+									<span class="text-xs font-semibold">Refocus</span>
+									<span class="text-[11px] text-slate-500">
+										Center key content with a smart fill‑style preview. Perfect for portraits.
+									</span>
+								</span>
+							</label>
+
+							<label
+								class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/60 px-3 py-2 text-xs text-slate-800 shadow-sm ring-0 shadow-slate-100 transition hover:border-slate-300 has-[:checked]:border-sky-500 has-[:checked]:bg-sky-50 has-[:checked]:shadow-sky-100"
+							>
+								<input
+									type="radio"
+									class="h-3.5 w-3.5 text-sky-600 focus-visible:ring-1 focus-visible:ring-sky-500 focus-visible:outline-none"
+									name="method"
+									value="crop"
+									checked={method === 'crop'}
+									on:change={onMethodChange}
+								/>
+								<span class="flex flex-col">
+									<span class="text-xs font-semibold">Crop</span>
+									<span class="text-[11px] text-slate-500">
+										Tighten the frame with simple focus controls.
+									</span>
+								</span>
+							</label>
+						</div>
+					</div>
+
+					{#if method === 'fill' || method === 'refocus'}
+						<div class="space-y-2">
+							<div class="flex items-center justify-between text-xs text-slate-600">
+								<span class="font-medium">AI intensity</span>
+								<span class="text-[11px] text-slate-500">
+									{#if aiIntensity < 0.35}
+										Subtle background
+									{:else if aiIntensity < 0.7}
+										Balanced
+									{:else}
+										Strong blur &amp; fill
+									{/if}
+								</span>
+							</div>
+							<input
+								type="range"
+								min="0"
+								max="1"
+								step="0.05"
+								class="w-full accent-sky-600"
+								bind:value={aiIntensity}
+								on:input={onAiIntensityChange}
+							/>
+						</div>
+					{/if}
+
+					{#if method === 'crop'}
+						<div class="space-y-3 rounded-xl bg-slate-50/80 p-3">
+							<p class="text-[11px] font-medium tracking-wide text-slate-500 uppercase">
+								Crop focus
+							</p>
+							<div class="space-y-2">
+								<label
+									for="crop-horizontal"
+									class="flex items-center justify-between text-[11px] text-slate-600"
+								>
+									<span>Horizontal</span>
+									<span>{cropX}%</span>
+								</label>
+								<input
+									id="crop-horizontal"
+									type="range"
+									min="0"
+									max="100"
+									step="1"
+									class="w-full accent-sky-600"
+									bind:value={cropX}
+									on:input={onCropChange}
+								/>
+							</div>
+							<div class="space-y-2">
+								<label
+									for="crop-vertical"
+									class="flex items-center justify-between text-[11px] text-slate-600"
+								>
+									<span>Vertical</span>
+									<span>{cropY}%</span>
+								</label>
+								<input
+									id="crop-vertical"
+									type="range"
+									min="0"
+									max="100"
+									step="1"
+									class="w-full accent-sky-600"
+									bind:value={cropY}
+									on:input={onCropChange}
+								/>
+							</div>
+							<p class="text-[11px] text-slate-500">
+								Move the focus point towards where faces or key content should stay visible.
+							</p>
+						</div>
+					{/if}
 				</div>
 			</section>
 
 			<!-- Preview: full width below config -->
-			<section class="w-full space-y-4 rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm shadow-slate-100 sm:p-7">
-				<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">
-					Preview
-				</h2>
+			<section
+				class="w-full space-y-4 rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm shadow-slate-100 sm:p-7"
+			>
+				<h2 class="text-sm font-semibold tracking-wide text-slate-500 uppercase">Preview</h2>
 
 				<div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
 					<div class="min-w-0 space-y-1.5">
@@ -1000,11 +1021,7 @@
 							class="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-slate-200 bg-slate-100"
 						>
 							{#if originalUrl}
-								<img
-									src={originalUrl}
-									alt="Original upload"
-									class="h-full w-full object-contain"
-								/>
+								<img src={originalUrl} alt="Original upload" class="h-full w-full object-contain" />
 							{:else}
 								<div
 									class="flex h-full items-center justify-center px-2 text-center text-[11px] text-slate-400"
@@ -1041,9 +1058,7 @@
 										<div
 											class="h-4 w-4 animate-spin rounded-full border-[2px] border-slate-400 border-t-transparent"
 										></div>
-										<p class="text-[11px] text-slate-300">
-											NanoBanner is preparing your preview…
-										</p>
+										<p class="text-[11px] text-slate-300">NanoBanner is preparing your preview…</p>
 									{:else}
 										<p class="text-[11px] text-slate-300">
 											Choose a size and method to generate a preview.
@@ -1056,13 +1071,17 @@
 				</div>
 
 				{#if errorMessage}
-					<div class="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-[11px] text-rose-700">
+					<div
+						class="rounded-xl border border-rose-200 bg-rose-50/80 px-3 py-2 text-[11px] text-rose-700"
+					>
 						{errorMessage}
 					</div>
 				{/if}
 
 				{#if infoMessage}
-					<div class="rounded-xl border border-amber-200 bg-amber-50/80 px-3 py-2 text-[11px] text-amber-800">
+					<div
+						class="rounded-xl border border-amber-200 bg-amber-50/80 px-3 py-2 text-[11px] text-amber-800"
+					>
 						{infoMessage}
 					</div>
 				{/if}
@@ -1073,7 +1092,7 @@
 					<div class="flex flex-wrap items-center gap-2">
 						<button
 							type="button"
-							class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+							class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 							on:click={resetState}
 							disabled={!file && !processedUrl}
 						>
@@ -1082,7 +1101,7 @@
 
 						<button
 							type="button"
-							class="inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-1.5 text-xs font-semibold text-slate-50 shadow-sm shadow-slate-500/40 transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+							class="inline-flex items-center justify-center rounded-full bg-slate-900 px-4 py-1.5 text-xs font-semibold text-slate-50 shadow-sm shadow-slate-500/40 transition hover:bg-slate-800 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 							on:click={downloadImage}
 							disabled={!processedUrl || isProcessing}
 						>
@@ -1096,7 +1115,7 @@
 
 						<button
 							type="button"
-							class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+							class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-60"
 							on:click={shareImage}
 							disabled={!processedUrl || isProcessing}
 						>
@@ -1104,7 +1123,7 @@
 						</button>
 					</div>
 
-					<p class="text-[11px] text-right text-slate-500 sm:text-left">
+					<p class="text-right text-[11px] text-slate-500 sm:text-left">
 						All processing happens in your browser. Nothing is uploaded to a server.
 					</p>
 				</div>
